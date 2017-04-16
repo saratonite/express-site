@@ -1,22 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path')
 const app = express();
 
+/* Express static middleware */
+app.use(express.static(path.join(__dirname,'public')))
+
 /* Body parser middleware */
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded());
+
+/* TODO : Integrate template engine */
 
 app.get('/',function(req,res){
 
   console.log(req);
-
-  res.sendFile(__dirname+'/public/index.html');
+  res.sendFile(path.join(__dirname,'publice')+'/index.html');
 
 })
 
 app.post('/contact',function(req,res){
 
   console.log(req.body);
-  res.send('Thank you '+req.body.name);
+  //res.send('Thank you '+req.body.name);
+  res.status(200).json(req.body);
 
 });
 

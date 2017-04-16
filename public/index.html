@@ -3,14 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Express Site</title>
+    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-    <h1>The Index Page </h1>
-    <form class="" action="/contact" method="post">
+    <h1 class="page-header">Express Site </h1>
+    <form class="col-md-5 col-md-offset-3" action="/contact" method="post" >
+      <h3>Feedback</h3>
+      <div class="form-group">
+        <label for="">NAME</label>
+        <input class="form-control" type="text" name="name" value="">
+      </div>
+      <div class="form-group">
+        <label for="">E-MAIL</label>
+        <input class="form-control" type="email" name="email" value="">
+      </div>
+      <div class="form-group">
+        <label>NOTE</label>
+        <textarea class="form-control" name="note"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit" name="button">SUBMIT</button>
+      </div>
 
-      <input type="text" name="name" value="">
-      <input type="text" name="description" value="">
-      <button type="submit" name="button">Submit</button>
 
     </form>
   </body>
