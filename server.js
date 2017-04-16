@@ -1,24 +1,37 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path')
-const app = express();
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path')
+var nunjucks = require('nunjucks');
+var app = express();
 
 /* Express static middleware */
 app.use(express.static(path.join(__dirname,'public')))
 
 /* Body parser middleware */
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
-/* TODO : Integrate template engine */
+// Set View Directory
+// app.set('views','./views')
+// Setting View Engine
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
 app.get('/',function(req,res){
+  res.render('home.html')
+})
 
-  console.log(req);
-  res.sendFile(path.join(__dirname,'publice')+'/index.html');
+app.get('/feedback',function(req,res){
+
+  //console.log(req);
+  //res.sendFile(path.join(__dirname,'publice')+'/index.html');
+  res.render('feedback.html')
 
 })
 
-app.post('/contact',function(req,res){
+app.post('/feedback',function(req,res){
 
   console.log(req.body);
   //res.send('Thank you '+req.body.name);
