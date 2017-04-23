@@ -43,6 +43,10 @@ app.get('echo',function(req,res){
   res.send('Hello World');
 });
 
+/* API Routes */
+
+app.use('/api',require('./routes/api'))
+
 app.listen(5050,function(){
   console.log('Server listening on port 5050')
 });
