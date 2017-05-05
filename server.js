@@ -4,6 +4,9 @@ var path = require('path')
 var nunjucks = require('nunjucks');
 var app = express();
 
+
+var port = process.env.PORT || 8080;
+
 /* Express static middleware */
 app.use(express.static(path.join(__dirname,'public')))
 
@@ -47,6 +50,6 @@ app.get('echo',function(req,res){
 
 app.use('/api',require('./routes/api'))
 
-app.listen(5050,function(){
-  console.log('Server listening on port 5050')
+app.listen(port,function(){
+  console.log('Server listening on port'+ port)
 });
