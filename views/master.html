@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
-  </head>
-  <body>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    {% block content %}
-      This is the default content
-    {% endblock %}
+  <!-- Site Properties -->
+  <title>Sarath :: Node</title>
+  <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
 
-  </body>
+
+
+</head>
+<body>
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/feedback">Feedback</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="content">
+  {% block content %}
+  {% endblock %}
+  </div>
+</main>
+
+<footer>
+  &copy; Sarath
+</footer>
+
+</body>
+
 </html>
