@@ -4,13 +4,28 @@ var path = require('path')
 var nunjucks = require('nunjucks');
 var app = express();
 
+var webpack = require('webpack');
+var webpackDevMiddleWare = require('webpack-dev-middleware');
+var webpackConfig = require('./webpack.config');
+
 
 var port = process.env.PORT || 8080;
+
+// Webpack middleware setup
+
+var compiler = webpack(webpackConfig);
+
+
+	app.use(require('webpack-dev-middleware')(compiler,{
+	  noInfo:true,
+	  publicPath:"/assets"
+	}));
 
 /* Express static middleware */
 app.use(express.static(path.join(__dirname,'public')))
 
 /* Body parser middleware */
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -21,6 +36,11 @@ nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
+
+
+
+
+
 
 app.get('/',function(req,res){
   res.render('home.html')
