@@ -69,6 +69,7 @@ app.get('echo',function(req,res){
 /* API Routes */
 
 app.use('/api',require('./routes/api'))
+app.use('/api/todos',require('./routes/api/todos'));
 
 app.listen(port,function(){
   console.log('Server listening on port'+ port)
