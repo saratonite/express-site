@@ -1,4 +1,5 @@
 var express = require('express')
+var Feedback = require('../models/feedback');
 
 route = express.Router();
 
@@ -12,4 +13,12 @@ route.post('/',function(req,res){
   res.json({message:'API Works',query:req.query,body:req.body})
 })
 
+
+route.get('/feedbacks',function(req,res){
+  Feedback.find({},function(err,feedbacks){
+    if(err) res.json({message:"Error"})
+
+    res.json(feedbacks);
+  });
+});
 module.exports = route;

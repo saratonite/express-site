@@ -72,9 +72,21 @@ app.get('/feedback',function(req,res){
 
 app.post('/feedback',function(req,res){
 
+   var Feedback = require('./models/feedback');
+
+   var feedback = new Feedback(req.body);
+
+    feedback.save(function(err){
+
+      if(err) res.json({message:"Error"})
+
+      res.json({message:'success'});
+
+    })
+
   console.log(req.body);
   //res.send('Thank you '+req.body.name);
-  res.status(200).json(req.body);
+  //res.status(200).json(req.body);
 
 });
 
