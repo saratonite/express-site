@@ -38,7 +38,23 @@ nunjucks.configure('views', {
 });
 
 
+// Mongoose 
 
+var mongoose = require('mongoose');
+
+//Set up default mongoose connection
+var mongoDB = 'mongodb://127.0.0.1:27017/tools_db';
+mongoose.connect(mongoDB);
+
+//Get the default connection
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+db.once('open', function() {
+  // we're connected!
+  console.log('MongoDB Connected');
+});
 
 
 
