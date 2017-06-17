@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var path = require('path')
 var nunjucks = require('nunjucks');
 var app = express();
+var session = require('express-session');
+var cookieParser = require('cookie-parser')
 
 var webpack = require('webpack');
 var webpackDevMiddleWare = require('webpack-dev-middleware');
@@ -38,6 +40,16 @@ nunjucks.configure('views', {
 });
 
 
+// Express session setup
+app.use(cookieParser('verysecret'))
+
+app.use(session({
+  resave:false,
+  secret: 'verysecret',
+  saveUninitialized: true,
+  cookie: { secure: !true }
+}))
+
 // Mongoose 
 
 var mongoose = require('mongoose');
@@ -56,9 +68,8 @@ db.once('open', function() {
   console.log('MongoDB Connected');
 });
 
-
-
 app.get('/',function(req,res){
+
   res.render('home.html')
 })
 
