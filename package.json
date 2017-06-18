@@ -19,7 +19,8 @@
     "mongoose": "^4.10.6",
     "nunjucks": "^3.0.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "validator": "^7.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

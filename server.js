@@ -55,7 +55,7 @@ app.use(session({
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1:27017/tools_db';
+var mongoDB = 'mongodb://localhost:27017/tools_db';
 mongoose.connect(mongoDB);
 
 //Get the default connection
@@ -83,13 +83,34 @@ app.get('/feedback',function(req,res){
 
 app.post('/feedback',function(req,res){
 
+  // Validate 
+
+  var validator = require('validator')
+
+    var errors = [];
+
+    console.log(req.body)
+
+    if(validator.isEmpty(req.body.name.trim())){
+      errors.push('Name field required');
+    }
+
+    if(!validator.isEmail(req.body.email)){
+        errors.push('Invalid email');
+    }
+
+    if(errors.length) {
+        res.status(422).json({message:"Validation errors",errors:errors});
+        return;
+    }
+
    var Feedback = require('./models/feedback');
 
    var feedback = new Feedback(req.body);
 
     feedback.save(function(err){
 
-      if(err) res.json({message:"Error"})
+      if(err) res.status(500).json({message:"Error"})
 
       res.json({message:'success'});
 

@@ -1,4 +1,5 @@
 var express = require('express')
+var validator = require('validator');
 
 var router = express.Router();
 
@@ -20,9 +21,12 @@ router.get('/',function(req,res){
 router.post('/',function(req,res){
 
     // Validate request body
+  
+
+
 
     var td = new Todo({title:req.body.title,description:req.body.description});
-    td.save(function(err){
+    td.save(function(err,feedback){
 
         if(err) res.json({message:'Error'});
 
