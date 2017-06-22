@@ -5,14 +5,13 @@ import Greetings from './components/Greetings';
 class App extends Component {
     componentDidMount() {
 
-        console.log(this.props);
 
     }
 
     render() {
         return(
             <div>
-                <Greetings></Greetings>
+                <Greetings data={this.props.greetings}></Greetings>
             </div>
         )
     }
@@ -20,7 +19,8 @@ class App extends Component {
 function mapStateToProps(state) {
 
     return {
-        task:state.task
+        task:state.task,
+        greetings:state.greetings
     }
 }
 export default connect(mapStateToProps)(App);
