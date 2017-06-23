@@ -21,6 +21,16 @@ router.get('/',function(req,res){
 router.post('/',function(req,res){
 
     // Validate request body
+
+    var errors = [];
+    
+
+    if(validator.isEmpty(req.body.title) || validator.isEmpty(req.body.description)){
+
+        errors.push('Fields required');
+
+        res.status(428).json({errors:errors}); return;
+    }
   
 
 
