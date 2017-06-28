@@ -1,17 +1,20 @@
 import React,  { Component } from 'react';
 import { connect } from 'react-redux';
 import Greetings from './components/Greetings';
+import Navigation from './components/shared/Navigation';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
+import Signup from './components/pages/Signup';
+import Login from './components/pages/Login';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
 
-// FIXME: Fix Router bug
 
-class App extends Component {
+export default class App extends Component {
+
     componentDidMount() {
 
 
@@ -22,20 +25,13 @@ class App extends Component {
             
                 <Router>
                     <div> 
-                            <Link to="about">About</Link>
-                            <Greetings data={this.props.greetings}></Greetings>
-                            <Route extact path="/" component={Home} />
-                            <Route  path="/about" component={About} />
+                            <Navigation></Navigation>
+                            <Route exact path="/" component={Home} ></Route>
+                            <Route exact  path="/about" component={About} ></Route>
+                            <Route exact  path="/signup" component={Signup} ></Route>
+                            <Route exact  path="/login" component={Login} ></Route>
                     </div>
                 </Router>
         )
     }
 }
-function mapStateToProps(state) {
-
-    return {
-        task:state.task,
-        greetings:state.greetings
-    }
-}
-export default connect(mapStateToProps)(App);
