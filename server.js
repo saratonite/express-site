@@ -68,10 +68,7 @@ db.once('open', function() {
   console.log('MongoDB Connected');
 });
 
-app.get('/',function(req,res){
 
-  res.render('home.html')
-})
 
 app.get('/feedback',function(req,res){
 
@@ -132,6 +129,11 @@ app.use('/api',require('./routes/api'))
 app.use('/api/todos',require('./routes/api/todos'));
 app.use('/api/user',require('./routes/api/user'));
 app.use('/api/auth',require('./routes/api/auth'));
+
+app.get('*',function(req,res){
+
+  res.render('home.html')
+})
 
 app.listen(port,function(){
   console.log('Server listening on port'+ port)
