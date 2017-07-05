@@ -1,10 +1,10 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var path = require('path')
-var nunjucks = require('nunjucks');
-var app = express();
-var session = require('express-session');
-var cookieParser = require('cookie-parser')
+var express = require('express'),
+ bodyParser = require('body-parser'),
+ path = require('path'),
+ nunjucks = require('nunjucks'),
+ app = express(),
+ session = require('express-session'),
+ cookieParser = require('cookie-parser');
 
 var webpack = require('webpack');
 var webpackDevMiddleWare = require('webpack-dev-middleware');

@@ -1,12 +1,9 @@
 var express = require('express')
 var bcrypt = require('bcrypt')
-
+var authController = require('../../controllers/api/auth.controller');
 var route = express.Router();
 
 
-route.get('/',function(req,res){
-
-    res.send('Auth');
-});
+route.post('/',authController.check);
 
 module.exports = route;

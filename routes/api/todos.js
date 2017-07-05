@@ -1,48 +1,13 @@
 var express = require('express')
-var validator = require('validator');
 
 var router = express.Router();
 
-var Todo = require('../../models/todo')
+var Todo = require('../../models/todo'),
+TodoController = require('../../controllers/api/todo.controller');
 
 /**List todos */
-router.get('/',function(req,res){
+router.get('/',TodoController.getIndex);
+router.post('/',TodoController.createTodo);
 
-    Todo.find({},function(err,todos){
-
-        res.json(todos);
-
-    });
-    //res.json({'todos':'list'});
-
-});
-
-/**Create new todo */
-router.post('/',function(req,res){
-
-    // Validate request body
-
-    var errors = [];
-    
-
-    if(validator.isEmpty(req.body.title) || validator.isEmpty(req.body.description)){
-
-        errors.push('Fields required');
-
-        res.status(428).json({errors:errors}); return;
-    }
-  
-
-
-
-    var td = new Todo({title:req.body.title,description:req.body.description});
-    td.save(function(err,feedback){
-
-        if(err) res.json({message:'Error'});
-
-        res.json({message:'Todo created'});
-
-    });
-});
 
 module.exports = router;
