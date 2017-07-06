@@ -1,6 +1,8 @@
 import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { auth } from '../../actions/auth-action';
 
-export default class Login extends Component {
+class Login extends Component {
 
     constructor(props) {
 
@@ -12,8 +14,21 @@ export default class Login extends Component {
 
     }
 
+    componentDidMount() {
+
+        console.log(this.props);
+    }
+
     handleInputOnChange(e) {
         this.setState({[e.target.name]:e.target.value});
+
+    }
+
+    doLogin(e) {
+        console.log(this.props)
+        e.preventDefault();
+
+        this.props.auth('saratjh','pass');
 
     }
 
@@ -21,9 +36,8 @@ export default class Login extends Component {
         
         return(
             <div className="container">
-               <form className="form-signin">
-                    <h2 className="form-signin-heading">Please sign in</h2>
-
+               <form className="form-signin" onSubmit={this.doLogin.bind(this)}>
+                    <h2 className="form-signin-heading">Please sign in </h2>
                     <div className="form-group">
                         <label htmlFor="inputEmail" className="sr-only">Email address</label>
                         <input type="email" name="email" id="inputEmail" value={this.state.email} onChange={this.handleInputOnChange} className="form-control" placeholder="Email address" required autoFocus />
@@ -44,3 +58,15 @@ export default class Login extends Component {
         )
     }
 }
+
+function mapPropsToState(state){
+
+  return {
+    user:state.user
+  }
+
+}
+
+
+
+export default connect(mapPropsToState,{auth})(Login)

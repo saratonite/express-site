@@ -19,7 +19,7 @@ export default class Signup extends Component {
     }
 
     handleInputOnChange(e) {
-        console.log(e)
+
         this.setState({[e.target.name]:e.target.value});
 
     }
@@ -34,7 +34,7 @@ export default class Signup extends Component {
 
     }
 
-    // TODO: Form validations
+    //Form validations
 
     validate() {
 
