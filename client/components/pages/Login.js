@@ -27,10 +27,18 @@ class Login extends Component {
     doLogin(e) {
         console.log(this.props)
         e.preventDefault();
+        console.log(this.state)
+        this.props.auth(this.state.email,this.state.password);
+        // TODO:  Login request 
+    }
 
-        this.props.auth('saratjh','pass');
+    // TODO: Validate login data
+
+    validate() {
+
 
     }
+   
 
     render() {
         

@@ -36,7 +36,9 @@ function check(req,res) {
 
                 // TODO: Set session
                 req.session.user = user;
-                res.status(200).json({success:true,message:'User authenticated'});
+                user.password = null;
+                delete user.password;
+                res.status(200).json({success:true,message:'User authenticated',user:user});
                 return;
 
             }
