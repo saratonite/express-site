@@ -1,5 +1,9 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  Route,
+  Redirect
+} from 'react-router-dom'
 import { auth } from '../../actions/auth-action';
 
 class Login extends Component {
@@ -16,7 +20,6 @@ class Login extends Component {
 
     componentDidMount() {
 
-        console.log(this.props);
     }
 
     handleInputOnChange(e) {
@@ -25,11 +28,10 @@ class Login extends Component {
     }
 
     doLogin(e) {
-        console.log(this.props)
+
         e.preventDefault();
-        console.log(this.state)
+
         this.props.auth(this.state.email,this.state.password);
-        // TODO:  Login request 
     }
 
     // TODO: Validate login data
@@ -41,6 +43,10 @@ class Login extends Component {
    
 
     render() {
+
+        if(this.props.user.auth) {
+            return <Redirect to='/about'/>;
+        }
         
         return(
             <div className="container">

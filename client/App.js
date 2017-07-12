@@ -6,10 +6,14 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
+
+
+import AuthGaurd from './components/auth/AuthGaurdRoute';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom'
 
 
@@ -26,10 +30,12 @@ export default class App extends Component {
                 <Router>
                     <div> 
                             <Navigation></Navigation>
-                            <Route exact path="/" component={Home} ></Route>
-                            <Route exact  path="/about" component={About} ></Route>
-                            <Route exact  path="/signup" component={Signup} ></Route>
-                            <Route exact  path="/login" component={Login} ></Route>
+                            <Switch>
+                                <Route exact path="/" component={Home} ></Route>
+                                <AuthGaurd exact path="/about" component={ About } />
+                                <Route exact  path="/signup" component={Signup} ></Route>
+                                <Route exact  path="/login" component={Login} ></Route>
+                            </Switch>
                     </div>
                 </Router>
         )
