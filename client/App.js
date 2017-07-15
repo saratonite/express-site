@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
+import Logout from './components/auth/Logout';
 
 
 import AuthGaurd from './components/auth/AuthGaurdRoute';
@@ -35,6 +36,7 @@ export default class App extends Component {
                                 <AuthGaurd exact path="/about" component={ About } />
                                 <Route exact  path="/signup" component={Signup} ></Route>
                                 <Route exact  path="/login" component={Login} ></Route>
+                                <Route exact  path="/logout" component={ Logout } ></Route>
                             </Switch>
                     </div>
                 </Router>
