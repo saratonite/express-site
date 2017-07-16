@@ -36,7 +36,7 @@ export default class App extends Component {
                                 <AuthGaurd exact path="/about" component={ About } />
                                 <Route exact  path="/signup" component={Signup} ></Route>
                                 <Route exact  path="/login" component={Login} ></Route>
-                                <Route exact  path="/logout" component={ Logout } ></Route>
+                                <AuthGaurd exact  path="/logout" component={ Logout } ></AuthGaurd>
                             </Switch>
                     </div>
                 </Router>

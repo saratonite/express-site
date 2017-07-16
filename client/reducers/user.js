@@ -7,6 +7,9 @@ export default function(state = {auth:false,data:null}, action) {
         case 'USER_AUTHENTICATED': 
             console.log('REDC:USR:USER_AUTHENTICATED');
             return { ...state, auth:true,user:action.payload };
+        
+        case 'USER_LOGOUT' :
+            return { ...state, auth:false, user: null}
     }
 
 

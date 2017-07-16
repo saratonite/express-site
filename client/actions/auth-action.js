@@ -23,3 +23,10 @@ export function auth(email, password) {
 
     //return {type:'LOGIN',payload:email};
 }
+
+
+export function logout() {
+    return {
+        type: 'USER_LOGOUT'
+    }
+}
