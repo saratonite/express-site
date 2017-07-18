@@ -1,5 +1,8 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import Validator from 'validator';
+import classNames from 'classnames';
+
 import {
   Route,
   Redirect
@@ -12,7 +15,7 @@ class Login extends Component {
 
         super(props);
 
-        this.state = {email:'',password:''};
+        this.state = {email:'',password:'',errors:{}};
 
         this.handleInputOnChange = this.handleInputOnChange.bind(this);
 
@@ -31,12 +34,40 @@ class Login extends Component {
 
         e.preventDefault();
 
-        this.props.auth(this.state.email,this.state.password);
+        //TODO: Check validate
+
+        if(this.validate()) {
+            this.props.auth(this.state.email,this.state.password);
+        }
+
+        
     }
 
     // TODO: Validate login data
 
     validate() {
+
+        let errors = {};
+
+        if(Validator.isEmpty(this.state.email)) {
+            errors.email = 'Email field required';
+        }
+        else if(!Validator.isEmail(this.state.email)) {
+            errors.email = 'Invalid email';
+        }
+
+        if(Validator.isEmpty(this.state.password)) {
+            errors.password = 'Password field required';
+
+        }
+
+        this.setState({errors:errors});
+
+        if(Object.keys(errors).length) {
+            return false;
+        }
+
+        return true;
 
 
     }
@@ -47,18 +78,22 @@ class Login extends Component {
         if(this.props.user.auth) {
             return <Redirect to='/about'/>;
         }
+
+        let { errors } = this.state;
         
         return(
             <div className="container">
                <form className="form-signin" onSubmit={this.doLogin.bind(this)}>
                     <h2 className="form-signin-heading">Please sign in </h2>
-                    <div className="form-group">
+                    <div className={classNames("form-group",{'has-danger':errors.email}) }>
                         <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                        <input type="email" name="email" id="inputEmail" value={this.state.email} onChange={this.handleInputOnChange} className="form-control" placeholder="Email address" required autoFocus />
+                        <input type="text" name="email" id="inputEmail" value={this.state.email} onChange={this.handleInputOnChange} className="form-control" placeholder="Email address"  autoFocus />
+                         { errors.email && <div className="form-control-feedback">{errors.email}</div> }
                     </div>
-                    <div className="form-group">
+                    <div className={classNames("form-group",{'has-danger':errors.password}) }>
                          <label htmlFor="inputPassword" className="sr-only">Password</label>
-                         <input type="password" name="password" id="inputPassword" value={this.state.password} onChange={this.handleInputOnChange} className="form-control" placeholder="Password" required />
+                         <input type="password" name="password" id="inputPassword" value={this.state.password} onChange={this.handleInputOnChange} className="form-control" placeholder="Password"  />
+                          { errors.password && <div className="form-control-feedback">{errors.password}</div> }
                     </div>
                    
                     <div className="checkbox">
