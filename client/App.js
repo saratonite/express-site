@@ -8,6 +8,8 @@ import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Logout from './components/auth/Logout';
 
+import Pagenotfound from './components/shared/Pagenotfound';
+
 
 import AuthGaurd from './components/auth/AuthGaurdRoute';
 import {
@@ -37,6 +39,7 @@ export default class App extends Component {
                                 <Route exact  path="/signup" component={Signup} ></Route>
                                 <Route exact  path="/login" component={Login} ></Route>
                                 <AuthGaurd exact  path="/logout" component={ Logout } ></AuthGaurd>
+                                <Route component={ Pagenotfound }/>
                             </Switch>
                     </div>
                 </Router>
