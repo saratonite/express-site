@@ -2,22 +2,23 @@ import React,  { Component } from 'react';
 import { connect } from 'react-redux';
 import Greetings from './components/Greetings';
 import Navigation from './components/shared/Navigation';
-import Home from './components/pages/Home';
-import About from './components/pages/About';
-import Signup from './components/pages/Signup';
-import Login from './components/pages/Login';
-import Logout from './components/auth/Logout';
-
-import Pagenotfound from './components/shared/Pagenotfound';
-
-
-import AuthGaurd from './components/auth/AuthGaurdRoute';
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Switch
 } from 'react-router-dom'
+
+import AuthGaurd from './components/auth/AuthGaurdRoute';
+
+import routes from './routes';
+
+
+const _routes = routes.map((route,i) => {
+
+    return route.auth ? <AuthGaurd key={i} {...route} /> : <Route key={i} {...route} />;
+
+})
 
 
 export default class App extends Component {
@@ -34,12 +35,7 @@ export default class App extends Component {
                     <div> 
                             <Navigation></Navigation>
                             <Switch>
-                                <Route exact path="/" component={Home} ></Route>
-                                <AuthGaurd exact path="/about" component={ About } />
-                                <Route exact  path="/signup" component={Signup} ></Route>
-                                <Route exact  path="/login" component={Login} ></Route>
-                                <AuthGaurd exact  path="/logout" component={ Logout } ></AuthGaurd>
-                                <Route component={ Pagenotfound }/>
+                                { _routes }
                             </Switch>
                     </div>
                 </Router>
