@@ -55,7 +55,8 @@ route.post('/',function(req,res) {
 
             if(err)  {
                 console.log(err)
-                res.status(428).json({message:"Failed"})
+                let error = err.code == 11000 ? 'Email already exists!' : 'Unknown errror';
+                res.status(428).json({message:error})
                 return;
             }
 

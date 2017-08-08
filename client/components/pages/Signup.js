@@ -1,11 +1,14 @@
 import React , { Component } from 'react';
+import { connect } from 'react-redux';
 import Validator from 'validator';
 import classNames from 'classnames';
+
+import { register } from '../../actions/auth-action';
 
 // TODO: Connect to redux store
 
  
-export default class Signup extends Component {
+class Signup extends Component {
     constructor(props) {
 
         super(props);
@@ -28,7 +31,10 @@ export default class Signup extends Component {
 
     handleFormSubmit(e) {
 
-        this.validate();
+        if(this.validate()){
+
+            this.props.register(this.state);
+        }
 
         e.preventDefault();
 
@@ -61,6 +67,13 @@ export default class Signup extends Component {
         }
     
         this.setState({errors:errors});
+
+        if( Object.keys(errors).length > 0) {
+
+            return false;
+        }
+
+        return true;
 
     }
 
@@ -100,3 +113,11 @@ export default class Signup extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, { register })(Signup);

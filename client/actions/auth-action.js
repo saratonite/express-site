@@ -24,6 +24,20 @@ export function auth(email, password) {
     //return {type:'LOGIN',payload:email};
 }
 
+export function register(newuser) {
+    return (dispatch) => {
+        axios.post('api/user',newuser)
+            .then(response => {
+                console.log('Register success ', response);
+                dispatch({ type:'USER_CREATED',payload:response.data});
+            })
+            .catch(err => {
+
+                console.log('Register failed',err);
+
+            })
+    }
+}
 
 export function logout() {
     return {
