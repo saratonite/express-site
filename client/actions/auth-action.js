@@ -29,7 +29,7 @@ export function register(newuser) {
         axios.post('api/user',newuser)
             .then(response => {
                 console.log('Register success ', response);
-                dispatch({ type:'USER_CREATED',payload:response.data});
+                dispatch({ type:'USER_CREATED',payload:true});
             })
             .catch(err => {
 

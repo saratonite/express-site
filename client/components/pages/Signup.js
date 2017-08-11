@@ -2,6 +2,7 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import Validator from 'validator';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import { register } from '../../actions/auth-action';
 
@@ -19,6 +20,11 @@ class Signup extends Component {
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
+    }
+
+    componentDidMount() {
+
+        console.log(this.props);
     }
 
     handleInputOnChange(e) {
@@ -81,34 +87,48 @@ class Signup extends Component {
 
         let { errors }= this.state;
 
+        let { userCreated } = this.props; 
 
         
         return(
             <div className="container">
-               <form className="form-signin" onSubmit={this.handleFormSubmit}>
-                    <h2 className="form-signin-heading">Sign up</h2>
-                    <div className={classNames("form-group",{'has-danger':errors.email}) }>
+              
+                    <h2 className="form-signin-heading">Sign up </h2>
+
+                    { userCreated &&
+                     <div className="alert alert-info" role="alert">
+                        User registered successfully , Please <Link to="/login">Login</Link>
+                     </div>
+                    }
+                    {
+                        !userCreated &&
+                         <form className="form-signin" onSubmit={this.handleFormSubmit}>
+                        <div className={classNames("form-group",{'has-danger':errors.email}) }>
                         <label htmlFor="inputEmail" className="sr-only">Email address</label>
                         <input   name="email" onChange={ this.handleInputOnChange } id="inputEmail" className="form-control" placeholder="Email address" autoFocus />
                         { errors.email && <div className="form-control-feedback">{errors.email}</div> }
 
-                    </div>
-                     <div className={classNames("form-group",{'has-danger':errors.password}) }>
-                        <label htmlFor="inputPassword" className="sr-only">Password</label>
-                        <input type="password" name="password" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Password" />
-                         { errors.password && <div className="form-control-feedback">{errors.password}</div> }
-                    </div>
-                     <div className={classNames("form-group",{'has-danger':errors.confirmPassword}) }>
-                        <input type="password" name="confirmPassword" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Confirm Password" />
-                          { errors.confirmPassword && <div className="form-control-feedback">{errors.confirmPassword}</div> }
-                    </div>
-                    <div className="checkbox">
-                    <label>
-                        <input type="checkbox" name="remember" onChange={this.handleInputOnChange}  /> I agree
-                    </label>
-                    </div>
-                    <button className="btn btn-lg btn-primary btn-block" type="submit">Start</button>
-                </form>
+                        </div>
+                        <div className={classNames("form-group",{'has-danger':errors.password}) }>
+                            <label htmlFor="inputPassword" className="sr-only">Password</label>
+                            <input type="password" name="password" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Password" />
+                            { errors.password && <div className="form-control-feedback">{errors.password}</div> }
+                        </div>
+                        <div className={classNames("form-group",{'has-danger':errors.confirmPassword}) }>
+                            <input type="password" name="confirmPassword" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Confirm Password" />
+                            { errors.confirmPassword && <div className="form-control-feedback">{errors.confirmPassword}</div> }
+                        </div>
+                        <div className="checkbox">
+                        <label>
+                            <input type="checkbox" name="remember" onChange={this.handleInputOnChange}  /> I agree
+                        </label>
+                        </div>
+                        <button className="btn btn-lg btn-primary btn-block" type="submit">Start</button>
+                     </form>
+
+                    }
+                    
+               
             </div>
         )
     }
@@ -116,7 +136,7 @@ class Signup extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        userCreated: state.user.userCreated
     }
 }
 

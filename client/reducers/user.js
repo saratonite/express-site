@@ -1,4 +1,4 @@
-export default function(state = {auth:false,data:null}, action) {
+export default function(state = {auth:false,data:null,userCreated:false}, action) {
 
     switch (action.type) {
         case 'LOGIN':
@@ -10,6 +10,10 @@ export default function(state = {auth:false,data:null}, action) {
         
         case 'USER_LOGOUT' :
             return { ...state, auth:false, user: null}
+
+        case 'USER_CREATED' :
+
+            return { ...state,auth:false , userCreated:true };
     }
 
 
