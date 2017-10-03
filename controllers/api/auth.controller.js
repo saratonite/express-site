@@ -30,11 +30,9 @@ function check(req,res) {
 
             }
 
-            if(bcrypt.compareSync(req.body.password,user.password)){
+            if(user.isValidPassword(req.body.password)){
 
                 // User Authentcated successfully
-
-                // TODO: Set session
                 req.session.user = user;
                 user.password = null;
                 delete user.password;

@@ -14,7 +14,7 @@ class Signup extends Component {
 
         super(props);
 
-        this.state = {email:'',password:'',confirmPassword:'',remember:'', errors:{}, globalError: null};
+        this.state = {email:'',password:'',confirmPassword:'',remember:'', errors:{}, globalError: null, successMessage:null};
 
         this.handleInputOnChange = this.handleInputOnChange.bind(this);
 
@@ -37,11 +37,14 @@ class Signup extends Component {
 
     handleFormSubmit(e) {
 
+        this.setState({ globalError: null })
+
         if(this.validate()){
 
             this.props.register(this.state)
             .then(res => {
 
+                this.setState({successMessage: 'Successfully signuped , please login'});
 
             })
             .catch(err => {
@@ -94,7 +97,7 @@ class Signup extends Component {
 
     render() {
 
-        let { errors , globalError }= this.state;
+        let { errors , globalError , successMessage }= this.state;
 
         let { userCreated } = this.props; 
 
@@ -111,11 +114,13 @@ class Signup extends Component {
                         </div>
                     }
 
-                    { userCreated &&
-                     <div className="alert alert-info" role="alert">
-                        User registered successfully , Please <Link to="/login">Login</Link>
-                     </div>
+                    {
+                        successMessage && 
+                        <div className="alert alert-info">
+                            Successfully registered, Please login  <Link to="/login">Login</Link>
+                        </div>
                     }
+
                     {
                         !userCreated &&
                          <form className="form-signin" onSubmit={this.handleFormSubmit}>
