@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
+import {  } from 'react-router-dom';
 import Validator from 'validator';
 import classNames from 'classnames';
 
@@ -15,7 +16,7 @@ class Login extends Component {
 
         super(props);
 
-        this.state = {email:'',password:'',errors:{}};
+        this.state = {email:'',password:'',errors:{},globalError:null};
 
         this.handleInputOnChange = this.handleInputOnChange.bind(this);
 
@@ -34,16 +35,24 @@ class Login extends Component {
 
         e.preventDefault();
 
-        //TODO: Check validate
+        this.setState({ globalError: null});
 
         if(this.validate()) {
-            this.props.auth(this.state.email,this.state.password);
+            this.props.auth(this.state.email,this.state.password)
+                .then((data) => {
+
+                    this.props.history.push('/about')
+                })
+                .catch((err) => {
+
+                    this.setState({globalError:err.response.data.message})
+
+                })
         }
 
         
     }
 
-    // TODO: Validate login data
 
     validate() {
 
@@ -75,16 +84,14 @@ class Login extends Component {
 
     render() {
 
-        if(this.props.user.auth) {
-            return <Redirect to='/about'/>;
-        }
-
-        let { errors } = this.state;
+        let { errors , globalError } = this.state;
         
         return(
             <div className="container">
+                
                <form className="form-signin" onSubmit={this.doLogin.bind(this)}>
                     <h2 className="form-signin-heading">Please sign in </h2>
+                     { globalError&& <div className="alert alert-danger">{globalError}</div> }
                     <div className={classNames("form-group",{'has-danger':errors.email}) }>
                         <label htmlFor="inputEmail" className="sr-only">Email address</label>
                         <input type="text" name="email" id="inputEmail" value={this.state.email} onChange={this.handleInputOnChange} className="form-control" placeholder="Email address"  autoFocus />

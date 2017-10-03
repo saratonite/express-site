@@ -14,7 +14,7 @@ class Signup extends Component {
 
         super(props);
 
-        this.state = {email:'',password:'',confirmPassword:'',remember:'', errors:{}};
+        this.state = {email:'',password:'',confirmPassword:'',remember:'', errors:{}, globalError: null};
 
         this.handleInputOnChange = this.handleInputOnChange.bind(this);
 
@@ -39,7 +39,16 @@ class Signup extends Component {
 
         if(this.validate()){
 
-            this.props.register(this.state);
+            this.props.register(this.state)
+            .then(res => {
+
+
+            })
+            .catch(err => {
+
+                console.log(err.response)
+                this.setState({ globalError:err.response.data.message })
+            })
         }
 
         e.preventDefault();
@@ -85,7 +94,7 @@ class Signup extends Component {
 
     render() {
 
-        let { errors }= this.state;
+        let { errors , globalError }= this.state;
 
         let { userCreated } = this.props; 
 
@@ -94,6 +103,13 @@ class Signup extends Component {
             <div className="container">
               
                     <h2 className="form-signin-heading">Sign up </h2>
+
+                    {
+                        globalError && 
+                        <div className="alert alert-danger">
+                             { globalError }
+                        </div>
+                    }
 
                     { userCreated &&
                      <div className="alert alert-info" role="alert">
