@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import {
   Link
 } from 'react-router-dom'
@@ -8,50 +8,72 @@ import { connect } from 'react-redux';
 
 class Navigation extends Component {
 
-    links() {
+    constructor(props) {
+        super(props);
 
-         let { isAuth } = this.props;
+        this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.state = {
+        collapsed: true
+        };
+    }
 
-         if(isAuth) {
+    toggleNavbar() {
+        this.setState({
+        collapsed: !this.state.collapsed
+        });
+    }
 
-             return (
-                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/">Home</Link></li>
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/about">About</Link></li>
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/logout">Logout</Link></li>
-                </ul>
-             )
-         }
 
-         return (
-             <ul className="navbar-nav mr-auto">
-       
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/signup">Signup</Link></li>
-                    <li className="nav-item" role="presentation"><Link className="nav-link" to="/login">Login</Link></li>
-            </ul>
-         )
+    authLinks() {
 
+            return(
+                 <Nav navbar>
+                        <NavItem>
+                            <Link className="nav-link" to="/">HOME</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link className="nav-link" to="/about">ABOUT</Link>
+                        </NavItem>
+                </Nav>
+            ) 
+    }      
+
+    guestLinks() {
+         return(
+                 <Nav navbar>
+                        <NavItem>
+                            <Link className="nav-link" to="/login">LOGIN</Link>
+                        </NavItem>
+                        <NavItem>
+                            <Link className="nav-link" to="/signup">SIGNUP</Link>
+                        </NavItem>
+                </Nav>
+            ) 
     }
 
     render() {
 
-       
-
-
+        let { isAuth } = this.props;
+    
         return(
-            <nav className="navbar navbar-toggleable-md navbar-light bg-faded">
-                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <Link to="/" className="navbar-brand">TOOLS</Link>
-                
-                { this.links() }
+            <Navbar color="faded" light>
+                <NavbarBrand className="mr-auto">TOOLS</NavbarBrand>
+                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                <Collapse isOpen={!this.state.collapsed} navbar>
 
-                <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </nav>
+                    { isAuth &&
+                        this.authLinks()
+                    }
+
+
+                    {
+                        !isAuth &&
+
+                        this.guestLinks()
+                    }
+
+                </Collapse>
+             </Navbar>
         )
     }
 }

@@ -1,8 +1,8 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import {  } from 'react-router-dom';
 import Validator from 'validator';
 import classNames from 'classnames';
+import { Alert , Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 
 import {
   Route,
@@ -89,27 +89,22 @@ class Login extends Component {
         return(
             <div className="container">
                 
-               <form className="form-signin" onSubmit={this.doLogin.bind(this)}>
+               <Form className="form-signin" onSubmit={this.doLogin.bind(this)}>
                     <h2 className="form-signin-heading">Please sign in </h2>
-                     { globalError&& <div className="alert alert-danger">{globalError}</div> }
-                    <div className={classNames("form-group",{'has-danger':errors.email}) }>
-                        <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                        <input type="text" name="email" id="inputEmail" value={this.state.email} onChange={this.handleInputOnChange} className="form-control" placeholder="Email address"  autoFocus />
-                         { errors.email && <div className="form-control-feedback">{errors.email}</div> }
-                    </div>
-                    <div className={classNames("form-group",{'has-danger':errors.password}) }>
-                         <label htmlFor="inputPassword" className="sr-only">Password</label>
-                         <input type="password" name="password" id="inputPassword" value={this.state.password} onChange={this.handleInputOnChange} className="form-control" placeholder="Password"  />
-                          { errors.password && <div className="form-control-feedback">{errors.password}</div> }
-                    </div>
-                   
-                    <div className="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me" /> Remember me
-                        </label>
-                    </div>
-                    <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                </form>
+                     { globalError&& <Alert color="danger">{globalError}</Alert>}
+                     <FormGroup>
+                         <Label>Email</Label>
+                         <Input name="email" value={this.state.email} onChange={this.handleInputOnChange} placeholder="Email" valid={!errors.email}/>
+                          { errors.email && <FormFeedback>{errors.email}</FormFeedback> }
+                     </FormGroup>
+                     <FormGroup>
+                         <Label>Email</Label>
+                         <Input name="password" value={this.state.password} onChange={this.handleInputOnChange} placeholder="Password" valid={!errors.password}/>
+                          { errors.password && <FormFeedback>{errors.password}</FormFeedback> }
+                     </FormGroup>
+
+                    <Button color="primary" size="lg" block>LOGIN</Button>
+                </Form>
             </div>
         )
     }

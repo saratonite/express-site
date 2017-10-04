@@ -54,7 +54,6 @@ route.post('/',function(req,res) {
         User.create(userObject,function(err){
 
             if(err)  {
-                console.log(err)
                 let error = err.code == 11000 ? 'Email already exists!' : 'Unknown errror';
                 res.status(428).json({message:error})
                 return;

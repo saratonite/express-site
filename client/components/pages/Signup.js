@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Validator from 'validator';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-
+import { Alert , Form, FormGroup, Label, Input, FormFeedback, Button } from 'reactstrap';
 import { register } from '../../actions/auth-action';
 
 // TODO: Connect to redux store
@@ -23,8 +23,7 @@ class Signup extends Component {
     }
 
     componentDidMount() {
-
-        console.log(this.props);
+        
     }
 
     handleInputOnChange(e) {
@@ -109,43 +108,47 @@ class Signup extends Component {
 
                     {
                         globalError && 
-                        <div className="alert alert-danger">
-                             { globalError }
-                        </div>
+                        <Alert color="danger">
+                            { globalError }
+                        </Alert>
                     }
 
                     {
                         successMessage && 
-                        <div className="alert alert-info">
-                            Successfully registered, Please login  <Link to="/login">Login</Link>
-                        </div>
+
+                        <Alert color="info">
+                           Successfully registered, Please login  <Link to="/login">Login</Link>
+                        </Alert>
+
+                        
                     }
 
                     {
                         !userCreated &&
-                         <form className="form-signin" onSubmit={this.handleFormSubmit}>
-                        <div className={classNames("form-group",{'has-danger':errors.email}) }>
-                        <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                        <input   name="email" onChange={ this.handleInputOnChange } id="inputEmail" className="form-control" placeholder="Email address" autoFocus />
-                        { errors.email && <div className="form-control-feedback">{errors.email}</div> }
+                         <Form className="form-signin" onSubmit={this.handleFormSubmit}>
+                            <FormGroup>
+                            <Label htmlFor="inputEmail" className="sr-only">Email address</Label>
+                            <Input  name="email" onChange={ this.handleInputOnChange } placeholder="Email" valid={!errors.email} />
+                                { errors.email && <FormFeedback>{errors.email}</FormFeedback> }
 
-                        </div>
-                        <div className={classNames("form-group",{'has-danger':errors.password}) }>
-                            <label htmlFor="inputPassword" className="sr-only">Password</label>
-                            <input type="password" name="password" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Password" />
-                            { errors.password && <div className="form-control-feedback">{errors.password}</div> }
-                        </div>
-                        <div className={classNames("form-group",{'has-danger':errors.confirmPassword}) }>
-                            <input type="password" name="confirmPassword" onChange={ this.handleInputOnChange } id="inputPassword" className="form-control" placeholder="Confirm Password" />
-                            { errors.confirmPassword && <div className="form-control-feedback">{errors.confirmPassword}</div> }
-                        </div>
-                        <div className="checkbox">
-                        <label>
-                            <input type="checkbox" name="remember" onChange={this.handleInputOnChange}  /> I agree
-                        </label>
-                        </div>
-                        <button className="btn btn-lg btn-primary btn-block" type="submit">Start</button>
-                     </form>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label htmlFor="inputEmail" className="sr-only">Password</Label>
+                            <Input type="password"  name="password" onChange={ this.handleInputOnChange } placeholder="Password" valid={!errors.password} />
+                                { errors.password && <FormFeedback>{errors.password}</FormFeedback> }
+
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label htmlFor="inputEmail" className="sr-only">Confirm Password</Label>
+                            <Input type="password"  name="confirmPassword" onChange={ this.handleInputOnChange } placeholder="Retype password" valid={!errors.confirmPassword} />
+                                { errors.confirmPassword && <FormFeedback>{errors.confirmPassword}</FormFeedback> }
+
+                        </FormGroup>
+
+                        <Button color="primary" size="lg" block>CREATE</Button>
+                     </Form>
 
                     }
                     
