@@ -32,7 +32,13 @@ class Navigation extends Component {
                             <Link className="nav-link" to="/">HOME</Link>
                         </NavItem>
                         <NavItem>
+                            <Link className="nav-link" to="/todos">TODOS</Link>
+                        </NavItem>
+                        <NavItem>
                             <Link className="nav-link" to="/about">ABOUT</Link>
+                        </NavItem>
+                         <NavItem>
+                            <Link className="nav-link" to="/logout">LOGOUT</Link>
                         </NavItem>
                 </Nav>
             ) 

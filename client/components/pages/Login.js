@@ -99,7 +99,7 @@ class Login extends Component {
                      </FormGroup>
                      <FormGroup>
                          <Label>Email</Label>
-                         <Input name="password" value={this.state.password} onChange={this.handleInputOnChange} placeholder="Password" valid={!errors.password}/>
+                         <Input type="password" name="password" value={this.state.password} onChange={this.handleInputOnChange} placeholder="Password" valid={!errors.password}/>
                           { errors.password && <FormFeedback>{errors.password}</FormFeedback> }
                      </FormGroup>
 

@@ -2,6 +2,9 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
+import Todo from './components/pages/Todo';
+
+
 import Logout from './components/auth/Logout';
 import Pagenotfound from './components/shared/Pagenotfound';
 
@@ -17,6 +20,12 @@ const routes = [
         component: About,
         exact: true,
         auth:true
+    },
+    {
+        path:'/todos',
+        component: Todo,
+        exact: true,
+        auth: true
     },
     {
         path: '/signup',
